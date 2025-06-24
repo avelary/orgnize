@@ -4,6 +4,7 @@ import * as S from "./style"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useAuth } from "../../context/auth"
+import { useNavigate } from "react-router"
 
 const registerSchema = z
   .object({
@@ -20,6 +21,7 @@ const registerSchema = z
 
 export const Register = () => {
   const {register: registerFirebase} = useAuth()
+  const navigate = useNavigate()
 
   const {
     register,
@@ -29,8 +31,13 @@ export const Register = () => {
     resolver: zodResolver(registerSchema)
   })
 
-  const onSubmit = async(data: RegisterFormData) => {
-    await registerFirebase(data.email, data.password)
+  const onSubmit = async (data: RegisterFormData) => {
+    try {
+      await registerFirebase(data.email, data.password)
+      navigate("/")
+    } catch (error) {
+      console.error("Erro ao cadastrar:", error)
+    }
   }
 
   return (
@@ -68,7 +75,7 @@ export const Register = () => {
         </S.InputContainer>
         <S.ButtonContainer>
             <Button to={"/login"} variation={ButtonVariations.ANCHOR}>Já possuo conta</Button>
-            <Button>Cadastrar-se</Button>
+            <Button type="submit">Cadastrar-se</Button>
         </S.ButtonContainer>
       </S.Form>
     </S.Container>

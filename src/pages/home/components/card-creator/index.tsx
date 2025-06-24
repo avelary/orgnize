@@ -12,11 +12,24 @@ export const CardCreator = () => {
     const [description, setDescription] = useState<string>("")
 
     const handleConfirm = () => {
+        const trimmedTitle = title.trim()
+        const trimmedDescription = description.trim()
+      
+        if (trimmedTitle === "" && trimmedDescription === "") {
+          alert("O card precisa ter pelo menos um título ou descrição.")
+          return
+        }
+      
+        createCard({
+          title: trimmedTitle,
+          description: trimmedDescription,
+          state: CardState.BACKLOG,
+        })
+      
         setTitle("")
         setDescription("")
         setIsEditing(false)
-        createCard({title, description, state: CardState.BACKLOG})
-    }
+      }      
 
     if(!isEditing) {
         return (

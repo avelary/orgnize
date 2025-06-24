@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export const Container = styled.div`
   width: 20.4rem;
-  height: 10rem;
+  min-height: 10rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,6 +21,10 @@ export const Title = styled.span`
   line-height: 100%;
   letter-spacing: -5%;
   color: #000000;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  display: block;
 `
 
 export const Description = styled.span`
@@ -30,4 +34,8 @@ export const Description = styled.span`
   line-height: 100%;
   letter-spacing: -5%;
   color: #1988e9;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  display: block;
 `
